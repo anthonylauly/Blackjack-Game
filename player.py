@@ -6,7 +6,7 @@ Created on Mon Dec  7 21:46:25 2020
 """
 """ Example of unpleasent init method"""
 from table import Table
-from bettingStrategy import BettingStrategy
+from bettingStrategy import BettingStrategy, Flat
 from gameStrategy import GameStrategy
 
 class Player:
