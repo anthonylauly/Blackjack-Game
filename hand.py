@@ -18,8 +18,12 @@ class Hand:
     def soft_totsl(self) -> int:
         return sum(c.soft for c in self.cards)
     
+    def __str__(self) -> str:
+        return ", ".join(map(str, self.cards))
+    
     def __repr__(self) -> str:
-        return f"{self.__class__.__name__} {self.dealer_card} {self.cards}"
+        cards_text = ", ".join(map(repr, self.cards))
+        return f"{self.__class__.__name__}({self.dealer_card!r}, {cards_text})"
     
 d = Deck()
 h = Hand(d.pop())
