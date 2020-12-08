@@ -21,6 +21,17 @@ class Card:
     
     def __str__(self) -> str:
         return f"{self.rank}{self.suit}"
+    
+    def __format__(self, format_spec: str) -> str:
+        if format_spec == "":
+            return str(self)
+        rs = (
+            format_spec.replace("%r", self.rank)
+                        .replace("%s", self.suit)
+                        .replace("%%", "%")
+        )
+        
+        return rs
 
 class AceCard(Card):
     def _points(self) -> Tuple[int, int]:
