@@ -7,6 +7,7 @@ Created on Wed Oct 28 20:47:48 2020
 from typing import Tuple
 from enum import Enum
 import random
+import sys
 
 class Card:
     def __init__(self, rank: str, suit: str) -> None:
@@ -72,7 +73,7 @@ def card5(rank: int, suit: Suit) -> Card:
     return class_(rank_str, suit)
 
 """ Mapping to a Tuple of Values """
-def car6(rank: int, suit: Suit) -> Card:
+def card6(rank: int, suit: Suit) -> Card:
     class_, rank_str = {
         1: (AceCard, 'A'),
         11: (FaceCard, 'J'),
@@ -131,8 +132,44 @@ class FaceCard3(Card3):
         rank_str = {11: 'J', 12: 'Q', 13: 'K'}[rank]
         super().__init__(rank_str, suit, 10, 10)
 
-
-
+class Card4:
+    def __init__(self, rank: str, suit: str) -> None:
+        self.suit = suit
+        self.rank = rank
+        self.hard, self.soft = self._points()
+    def _points(self) -> Tuple[int, int]:
+        return int(self.rank), int(self.rank)
+    
+    def __repr__(self) -> str:
+        return f"{self.__class__.__name__}(suit={self.suit!r}, rank={self.rank!r})"
+    
+    def __str__(self) -> str:
+        return f"{self.rank}{self.suit}"
+    
+    def __format__(self, format_spec: str) -> str:
+        if format_spec == "":
+            return str(self)
+        rs = (
+            format_spec.replace("%r", self.rank)
+                        .replace("%s", self.suit)
+                        .replace("%%", "%")
+        )
+        return rs
+    
+    def __eq__(self, other: Any) -> bool:
+        return (
+            self.suit == cast(Card4, other).suit 
+            and self.rank == cast(Card4, other).rank
+        )
+    
+    def __hash__(self) -> int:
+        return (hash(self.suit) + 4*hash(self.rank)) % sys.hash_info.modulus
+    
+class AceCard4(Card4):
+    insure = True
+    
+    def __init__(self, rank: int, suit: "Suit") -> None:
+        super().__init__("A", 1, 11)
 
 
 

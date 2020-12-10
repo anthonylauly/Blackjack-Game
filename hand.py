@@ -4,7 +4,7 @@ Created on Mon Dec  7 21:43:55 2020
 
 @author: antho
 """
-from card import Card
+from card import Card, Suit
 from deck import Deck
 
 class Hand:
@@ -24,6 +24,11 @@ class Hand:
     def __repr__(self) -> str:
         cards_text = ", ".join(map(repr, self.cards))
         return f"{self.__class__.__name__}({self.dealer_card!r}, {cards_text})"
+    
+    def __format__(self, spec: str) -> str:
+        if spec == "":
+            return str(self)
+        return ", ".join(f"{c:{spec}}" for c in self.cards)
     
 d = Deck()
 h = Hand(d.pop())
